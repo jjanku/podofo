@@ -26,6 +26,8 @@ INCLUDE(CheckLibraryExists)
 INCLUDE(TestBigEndian)
 INCLUDE(CheckTypeSize)
 
+INCLUDE(FetchContent)
+
 #
 # Setup CMake Policies
 #
@@ -407,8 +409,20 @@ ENDIF(NOT PODOFO_BUILD_LIB_ONLY)
 
 FIND_PACKAGE(OpenSSL)
 
-FIND_PACKAGE(FREETYPE REQUIRED)
-MESSAGE("Found freetype library at ${FREETYPE_LIBRARIES}, headers ${FREETYPE_INCLUDE_DIR}")
+# FIND_PACKAGE(FREETYPE REQUIRED)
+FetchContent_Declare(
+  freetype2
+  GIT_REPOSITORY https://gitlab.freedesktop.org/freetype/freetype.git
+  GIT_TAG        801cd842e27c85cb1d5000f6397f382ffe295daa # VER-2-11-0
+)
+IF(FREETYPE_FOUND)
+  MESSAGE("Found freetype library at ${FREETYPE_LIBRARIES}, headers ${FREETYPE_INCLUDE_DIR}")
+ELSE(FREETYPE_FOUND)
+  MESSAGE("Freetype not found, fetching from git")
+  FetchContent_MakeAvailable(freetype2)
+  SET(FREETYPE_FOUND TRUE)
+  SET(FREETYPE_LIBRARIES freetype)
+ENDIF(FREETYPE_FOUND)
 
 FIND_PACKAGE(LIBSTLPORT)
 SET(stlport_libraries_if_use_stlport)
@@ -571,9 +585,11 @@ CONFIGURE_FILE(${PoDoFo_SOURCE_DIR}/podofo_config.h.in ${PoDoFo_BINARY_DIR}/podo
 # your build (eg -DPODOFO_DIR=/path/to/podofo when running cmake to configure
 # the app that'll use podofo). See: FIND_PACKAGE(...) in the cmake docs.
 IF(PODOFO_BUILD_SHARED)
-  EXPORT(TARGETS podofo_shared FILE "${CMAKE_CURRENT_BINARY_DIR}/PoDoFoConfig.cmake")
+  # FIXME: failing because of fetched freetype
+  # EXPORT(TARGETS podofo_shared FILE "${CMAKE_CURRENT_BINARY_DIR}/PoDoFoConfig.cmake")
 ENDIF(PODOFO_BUILD_SHARED)
 IF(PODOFO_BUILD_STATIC)
-  EXPORT(TARGETS podofo_static FILE "${CMAKE_CURRENT_BINARY_DIR}/PoDoFoConfig.cmake")
+  # FIXME: failing because of fetched freetype
+  # EXPORT(TARGETS podofo_static FILE "${CMAKE_CURRENT_BINARY_DIR}/PoDoFoConfig.cmake")
 ENDIF(PODOFO_BUILD_STATIC)
 
