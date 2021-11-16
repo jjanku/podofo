@@ -102,20 +102,20 @@ CHECK_CXX_SOURCE_COMPILES("#include <memory>
 			int main(void) { std::unique_ptr<Cls> cls; return 0; }" PODOFO_HAVE_UNIQUE_PTR)
 
 # Some headers that tend to vary a bit
-CHECK_INCLUDE_FILE("strings.h" PODOFO_HAVE_STRINGS_H) 
-CHECK_INCLUDE_FILE("arpa/inet.h" PODOFO_HAVE_ARPA_INET_H) 
-CHECK_INCLUDE_FILE("winsock2.h" PODOFO_HAVE_WINSOCK2_H) 
-CHECK_INCLUDE_FILE("mem.h" PODOFO_HAVE_MEM_H) 
-CHECK_INCLUDE_FILE("ctype.h" PODOFO_HAVE_CTYPE_H) 
+CHECK_INCLUDE_FILE("strings.h" PODOFO_HAVE_STRINGS_H)
+CHECK_INCLUDE_FILE("arpa/inet.h" PODOFO_HAVE_ARPA_INET_H)
+CHECK_INCLUDE_FILE("winsock2.h" PODOFO_HAVE_WINSOCK2_H)
+CHECK_INCLUDE_FILE("mem.h" PODOFO_HAVE_MEM_H)
+CHECK_INCLUDE_FILE("ctype.h" PODOFO_HAVE_CTYPE_H)
 
 # Do some type size detection and provide yet another set of typedefs for fixed
 # font sizes. We can't use the c99 / c++0x uint32_t etc, because people use
 # ancient compilers that don't and will never support the standard.
 
-CHECK_INCLUDE_FILE("sys/types.h" PODOFO_HAVE_SYS_TYPES_H) 
-CHECK_INCLUDE_FILE("stdint.h" PODOFO_HAVE_STDINT_H) 
+CHECK_INCLUDE_FILE("sys/types.h" PODOFO_HAVE_SYS_TYPES_H)
+CHECK_INCLUDE_FILE("stdint.h" PODOFO_HAVE_STDINT_H)
 # See: http://msdn.microsoft.com/en-us/library/aa384264(VS.85).aspx
-CHECK_INCLUDE_FILE("BaseTsd.h" PODOFO_HAVE_BASETSD_H) 
+CHECK_INCLUDE_FILE("BaseTsd.h" PODOFO_HAVE_BASETSD_H)
 
 CHECK_TYPE_SIZE("long int" SZ_LONG)
 
@@ -548,7 +548,7 @@ FILE(WRITE
      "${PoDoFo_BINARY_DIR}/PoDoFoConfig.cmake"
      "# CMake module for PoDoFo\n"
      )
-FILE(APPEND 
+FILE(APPEND
      "${PoDoFo_BINARY_DIR}/PoDoFoConfig.cmake"
      "SET(PODOFO_INCLUDES ${PoDoFo_SOURCE_DIR}/src)\n"
      )
